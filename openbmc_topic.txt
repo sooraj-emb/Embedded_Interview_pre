@@ -1,0 +1,26 @@
+1: what is yocto build 
+2: explain openbmc arch
+3: sd card related features
+4: tpm slb9672 related feature
+5: led related feature
+6: spi / i2c /gpio fpga use case 
+7: debugging i2c device 
+8: rtc device related feature 
+9: what is mctp?
+10: what is mctp socket layer 
+11: adding bb file and bbappend file.
+12: service related question.
+13: dts dtsi related question
+14: i3c related question
+15: kvm related question
+16: kcs channel 
+17: ipmi related , what is ipmi 
+18: what is bmcweb , crow related app
+19: nvme related drive feature 
+20: hwmon related feature
+21: gpiomon related feature 
+22: object interface and bus related concept 
+23: property and method type.
+24: kvm working
+25: debigginh spi related transaction.
+26: probing device used in tpm2lb9672. 
