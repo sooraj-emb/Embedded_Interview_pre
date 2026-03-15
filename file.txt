@@ -8,14 +8,13 @@
 8. How systemcall works
 9. define runlevel
 10. How a thread is scheduled
-11. DIff b/w thread and process
-which is preffered and why ?
+11. DIff b/w thread and process which is preffered and why ?
 12. What is a volatile memory
 13. volatile variable
 14. While creating thread and process which entities will have different memories and which will share memory
 15. How free() knows, how much memory it should free.
 16. Structure padding
-Give introduction on memory layout.
+17. Give introduction on memory layout.
 Pointer size and int variable size in different architecture-8bits, 16bits, 32bits, 64bits
 Where share memory is creating? It is physical or logical.
 Which IPC is fast, why? which is slow, why?

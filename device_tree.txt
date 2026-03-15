@@ -1,0 +1,76 @@
+Device Tree (often called Devicetree or DT) is one of the most important mechanisms in modern embedded Linux (especially ARM, RISC-V, some PowerPC architectures). It describes the hardware configuration to the kernel in a structured, board-specific, but kernel-generic way.
+Why Device Tree Exists (Historical & Practical Context)
+Before ~2010–2012:
+
+Every ARM board needed its own platform code inside the kernel (arch/arm/mach-xxx, board-xxx.c)
+Adding a new board → huge patchsets, maintainability nightmare
+Kernel became bloated with thousands of board files
+
+Device Tree solved this by moving hardware description outside the kernel:
+
+Same kernel binary can boot on many boards (just different .dtb)
+Hardware vendors/SoC/board makers provide the description → not kernel developers
+
+Device Tree Compilation & Boot Flow (typical embedded)
+
+Write .dts + include many .dtsi (SoC, family, common parts)
+dtc -I dts -O dtb -o board.dtb board.dts
+(or via kernel make: make dtbs)
+Bootloader (U-Boot, Barebox, TF-A, …) loads kernel + dtb
+Bootloader usually passes DTB address to kernel (via r2 on ARM64, x0 on some)
+Kernel unflattens DTB → internal tree (of_device, platform_device, …)
+Of_platform_populate() walks tree → probes drivers
+
+Advanced / Real-World Topics
+
+Overlays — runtime modification (very popular on Raspberry Pi, BeagleBone)
+.dtbo files
+Applied via configfs, U-Boot, or kernel overlayfs
+
+Phandles & references (&uart0, &{/soc/i2c@...})
+Simple-bus, simple-mfd, syscon — catch-all nodes for MMIO regions
+pinctrl — pin muxing described in DT (very important on many SoCs)
+Reserved memory (/reserved-memory node)
+opp-table — operating performance points (DVFS)
+thermal-zones, ** OPP**, cpus cpu-map, etc.
+
+Embedded systems, with their diverse components and architectures, require an efficient way to describe hardware in a standardized, reusable format. The Linux Device Tree (DT) provides a flexible structure to address this need, defining hardware details in a way that the operating system and bootloader can interpret. Let’s dive into how Device Trees work, why they’re essential, and how they’re structured.
+
+Typical Embedded Platform
+
+Press enter or click to view image in full size
+
+Typical Embedded Platform
+Discoverable vs. Non-Discoverable Hardware
+When it comes to embedded platforms, not all hardware is created equal in terms of discoverability.
+
+Discoverable Hardware: Some buses, like PCI(e) and USB, support device discoverability, meaning they can enumerate and identify connected devices at runtime. Devices on these buses can communicate details like vendor ID, product ID, and device class to the system.
+Non-Discoverable Hardware: Buses like I2C, SPI, and 1-Wire lack discoverability. Here, the system must know what devices are connected and how they’re configured. Device Tree is especially useful in embedded systems that rely heavily on these types of buses.
+Hardware Description for Non-Discoverable Hardware
+For non-discoverable hardware, Device Tree files convey essential details about the hardware layout, including:
+
+CPU Cores: For example, a system might include two Cortex-A9 cores.
+Memory Mapped Controllers: Device-specific details, such as the memory addresses and interrupt requests (IRQs) of UART, I2C, and other controllers.
+Board-Level Components: External components, like an audio codec, connected to specific SoC buses with details on slave addresses, clock sources, and reset signals.
+These are details that the operating system or bootloader cannot guess, making Device Tree essential for hardware configuration.
+
+Describing Non-Discoverable Hardware: How Device Trees Work
+There are three main approaches for handling non-discoverable hardware information:
+
+Directly in OS/Bootloader Code: Traditionally, this was done using compiled C structures, but this approach became unsustainable on ARM32 platforms.
+ACPI Tables: Mainly used on x86 systems and some ARM64 platforms. Firmware provides ACPI tables that the OS can interpret.
+Device Tree: Preferred for most embedded CPU architectures, including ARM, RISC-V, MIPS, and PowerPC. Initially created for PowerPC, Device Tree is now widely used across various platforms, including Linux, U-Boot, and FreeBSD. A Device Tree file (DTB) is often a necessity when porting Linux to new hardware.
+Principles of Device Tree
+Device Tree consists of a tree data structure describing hardware, typically written in Device Tree Source (.dts) files, then compiled into Device Tree Blob (.dtb) format by the Device Tree Compiler (dtc). The DTB format is efficient, OS-agnostic, and flexible:
+
+Bootloader Integration: The DTB can be directly linked within a bootloader or passed to the OS by the bootloader.
+U-Boot: bootz <kernel-addr> - <dtb-addr>
+Syntax of Device Tree
+Device Tree uses a hierarchy of nodes and properties:
+
+Nodes represent devices or IP blocks.
+Properties define characteristics of these devices.
+Each node may refer to other nodes using a special concept known as the phandle, enabling references across the tree. This structure supports modular hardware descriptions.
+
+Press enter or click to view image in full size
+DirectionCommand (most common)Output file exampleDTS → DTBdtc -O dtb -o board.dtb board.dtsboard.dtbDTB → DTSdtc -I dtb -O dts -o board.dts board.dtbboard.dtsOverlay DTS → DTBOdtc -@ -O dtb -o overlay.dtbo overlay.dtsoverlay.dtboLive system DTB → DTSdtc -I fs -O dts /proc/device-tree > current.dts(whole running tree)

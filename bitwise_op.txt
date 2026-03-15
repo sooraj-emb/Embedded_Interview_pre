@@ -1,0 +1,219 @@
+// Program to check whether a number is power of two using bitwise operator
+
+#include <stdio.h>
+
+int isPowerOfTwo(int n)
+{
+    if(n <= 0)
+        return 0;
+
+    return (n & (n - 1)) == 0;
+}
+
+int main()
+{
+    int num = 8;
+
+    if(isPowerOfTwo(num))
+        printf("%d is power of 2\n", num);
+    else
+        printf("%d is not power of 2\n", num);
+
+    return 0;
+}
+
+////////////////////////////////////////////////////////////////////////////////////
+// Program to count number of set bits using Brian Kernighan algorithm
+
+#include <stdio.h>
+
+int countSetBits(int n)
+{
+    int count = 0;
+
+    while(n)
+    {
+        n = n & (n - 1);
+        count++;
+    }
+
+    return count;
+}
+
+int main()
+{
+    int num = 13;
+
+    printf("Set bits = %d\n", countSetBits(num));
+
+    return 0;
+}
+///////////////////////////////////////////////////////////////////////////////////////// 
+Program to find rightmost set bit using n & -n
+
+#include <stdio.h>
+
+int rightmostSetBit(int n)
+{
+    return n & -n;
+}
+
+int main()
+{
+    int num = 12;
+
+    printf("Rightmost set bit value = %d\n", rightmostSetBit(num));
+
+    return 0;
+}
+////////////////////////////////////////////////////////////////////////////////////
+
+// Program to find single number in array using XOR
+
+#include <stdio.h>
+
+int singleNumber(int arr[], int n)
+{
+    int num = 0;
+
+    for(int i = 0; i < n; i++)
+        num ^= arr[i];
+
+    return num;
+}
+
+int main()
+{
+    int arr[] = {10,10,1,10,10};
+    int size = sizeof(arr)/sizeof(arr[0]);
+
+    printf("Single number = %d\n", singleNumber(arr, size));
+
+    return 0;
+}
+//////////////////////////////////////////////////////////////////////////////
+
+// Program to find two numbers that appear once in array
+
+#include <stdio.h>
+
+void singleNumbers(int arr[], int n)
+{
+    int xor = 0;
+
+    for(int i = 0; i < n; i++)
+        xor ^= arr[i];
+
+    int rightmost = xor & (-xor);
+
+    int x = 0, y = 0;
+
+    for(int i = 0; i < n; i++)
+    {
+        if(arr[i] & rightmost)
+            x ^= arr[i];
+        else
+            y ^= arr[i];
+    }
+
+    printf("Two unique numbers: %d %d\n", x, y);
+}
+
+int main()
+{
+    int arr[] = {1,2,1,3,2,5};
+    int n = sizeof(arr)/sizeof(arr[0]);
+
+    singleNumbers(arr, n);
+
+    return 0;
+}
+////////////////////////////////////////////////////////////////////////////////////
+// Program to find number appearing odd number of times
+
+#include <stdio.h>
+
+int findOdd(int arr[], int n)
+{
+    int res = 0;
+
+    for(int i = 0; i < n; i++)
+        res ^= arr[i];
+
+    return res;
+}
+
+int main()
+{
+    int arr[] = {2,3,2,3,4,3,4};
+    int n = sizeof(arr)/sizeof(arr[0]);
+
+    printf("Number appearing odd times: %d\n", findOdd(arr, n));
+
+    return 0;
+}
+/////////////////////////////////////////////////////////////////////////////////
+// Program to swap two numbers without temp variable using XOR and call by pointer
+
+#include <stdio.h>
+
+void swap(int *a, int *b)
+{
+    *a = *a ^ *b;
+    *b = *a ^ *b;
+    *a = *a ^ *b;
+}
+
+int main()
+{
+    int x = 5, y = 10;
+
+    printf("Before swap: x = %d, y = %d\n", x, y);
+
+    swap(&x, &y);
+
+    printf("After swap: x = %d, y = %d\n", x, y);
+
+    return 0;
+}
+/////////////////////////////////////////////////////////////////////////
+// Program to check if two numbers have opposite signs
+
+#include <stdio.h>
+
+int oppositeSign(int a, int b)
+{
+    return (a ^ b) < 0;
+}
+
+int main()
+{
+    int a = 10, b = -20;
+
+    if(oppositeSign(a, b))
+        printf("Numbers have opposite signs\n");
+    else
+        printf("Numbers have same sign\n");
+
+    return 0;
+}
+////////////////////////////////////////////////////////////////////
+// Program to find absolute value without branching
+
+#include <stdio.h>
+
+int absolute(int n)
+{
+    int mask = n >> (sizeof(int)*8 - 1);
+    return (n + mask) ^ mask;
+}
+
+int main()
+{
+    int num = -25;
+
+    printf("Absolute value = %d\n", absolute(num));
+
+    return 0;
+}
+////////////////////////////////////////////////////////////////
