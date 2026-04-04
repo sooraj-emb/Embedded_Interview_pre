@@ -1,0 +1,57 @@
+What is a Yocto Build?
+
+A Yocto build refers to using the Yocto Project to create a custom Linux distribution for embedded systems.
+Instead of using a prebuilt OS like Ubuntu, Yocto allows you to build your own Linux OS from scratch, including:
+
+Kernel
+Root filesystem
+Libraries
+Applications
+
+"Yocto is a framework used to build custom Linux distributions for embedded devices using recipes and BitBake."
+
+A Yocto build system:
+
+Fetches source code
+Compiles packages
+Builds the root filesystem
+Generates a bootable image
+
+BitBake (Build Engine)
+Executes the build process
+Parses recipes and builds everything
+
+Recipes (.bb files)
+Define how to build a package
+Include:
+Source location
+Dependencies
+Build steps
+
+Organize metadata and recipes
+
+Examples:
+
+meta → core layer
+meta-openembedded → extra packages
+Custom layer → your project code
+
+Final OS output
+
+Examples:
+
+core-image-minimal
+core-image-full-cmdline
+
+why Yocto is Used
+Full control over OS components
+Minimal footprint (only what you need)
+Cross-compilation support
+Ideal for embedded systems
+
+Real Use Cases
+Network switches
+IoT devices
+Automotive systems
+BMC (like OpenBMC)
+Custom hardware platforms
