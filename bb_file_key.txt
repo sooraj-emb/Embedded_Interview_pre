@@ -1,0 +1,83 @@
+==Basic Metadata==
+SUMMARY
+SUMMARY = "Short description of the recipe"
+DESCRIPTION
+DESCRIPTION = "Detailed explanation of the recipe"
+LICENSE
+LICENSE = "MIT"
+LICENSE = "GPL-2.0-only"
+LICENSE = "GPL-3.0-only"
+LICENSE = "Apache-2.0"
+LICENSE = "BSD-3-Clause"
+LICENSE = "CLOSED"
+LIC_FILES_CHKSUM
+LIC_FILES_CHKSUM = " \
+    file://LICENSE;md5=abc123 \
+    file://COPYING;md5=def456 \
+"
+HOMEPAGE
+HOMEPAGE = "https://example.com"
+SECTION
+SECTION = "base"
+SECTION = "net"
+SECTION = "utils"
+SECTION = "libs"
+SECTION = "devel"
+SECTION = "kernel"
+SECTION = "console"
+==Source & Fetching==
+SRC_URI
+SRC_URI = "git://github.com/example/project.git;branch=main"
+SRCREV
+SRCREV = "commit-id"
+S = "path-to-source"
+S = "${WORKDIR}/git"
+WORKDIR
+do_fetch → source download
+do_unpack → WORKDIR में extract
+do_patch → patch apply
+do_compile → WORKDIR/S में build
+do_install → WORKDIR/image में install
+FILESEXTRAPATHS
+FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
+SRC_URI += "file://my_patch.patch"
+==Build / Compile==
+DEPENDS
+DEPENDS = "libusb"
+inherit
+inherit cmake
+inherit autotools pkgconfig
+EXTRA_OECONF
+EXTRA_OECONF = "--enable-feature-x --disable-debug"
+EXTRA_OEMAKE
+EXTRA_OEMAKE = "CC=${CC} CFLAGS='-O2'"
+PARALLEL_MAKE
+PARALLEL_MAKE = "-j4"
+
+==Install & Packaging==
+do_compile
+do_install
+FILES:${PN}
+PACKAGES
+
+==runtime / Dependencies==
+RDEPENDS:${PN}
+RRECOMMENDS:${PN}
+
+==Versioning==
+PV
+PR
+
+==Paths / Directories==
+D
+bindir
+libdir
+sysconfdir
+
+==Advanced / Common Use==
+PACKAGECONFIG
+PACKAGECONFIG ??= "feature1"
+BBCLASSEXTEND
+BBCLASSEXTEND = "native"
+PROVIDES
+PROVIDES += "virtual/myapp"
