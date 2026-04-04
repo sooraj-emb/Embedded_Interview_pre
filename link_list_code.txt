@@ -1,0 +1,402 @@
+//////////////////////////////////////////////////////////////////
+#include <stdio.h>
+#include <stdlib.h>
+
+// 1. Node structure definition
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+// Helper function to create a new node
+struct Node* createNode(int value) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    if (newNode == NULL) {
+        printf("Memory allocation failed!\n");
+        exit(1);
+    }
+    newNode->data = value;
+    newNode->next = NULL;
+    return newNode;
+}
+
+// Function to calculate the size/length of the linked list
+int getSize(struct Node* head) {
+    int count = 0;
+    struct Node* current = head;
+    
+    while (current != NULL) {
+        count++;
+        current = current->next;
+    }
+    return count;
+}
+
+// Optional: Helper to print the list (for demonstration)
+void printList(struct Node* head) {
+    struct Node* current = head;
+    while (current != NULL) {
+        printf("%d → ", current->data);
+        current = current->next;
+    }
+    printf("NULL\n");
+}
+
+int main() {
+    // Create nodes
+    struct Node* head = createNode(10);
+    head->next = createNode(20);
+    head->next->next = createNode(30);
+    head->next->next->next = createNode(7);
+    head->next->next->next->next = createNode(42);
+
+    // Print the list
+    printf("Linked List: ");
+    printList(head);
+
+    // Get and print size
+    int size = getSize(head);
+    printf("Size / Length of the linked list = %d\n", size);
+
+    // Clean up memory (good practice)
+    struct Node* current = head;
+    while (current != NULL) {
+        struct Node* temp = current;
+        current = current->next;
+        free(temp);
+    }
+
+    return 0;
+}
+/////////////////////////////////////////////////////////////////////////////
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>   // for tolower() and toupper()
+
+void toLowerCase(char str[]) {
+    for (int i = 0; str[i] != '\0'; i++) {
+        str[i] = tolower(str[i]);
+    }
+}
+
+void toUpperCase(char str[]) {
+    for (int i = 0; str[i] != '\0'; i++) {
+        str[i] = toupper(str[i]);
+    }
+}
+
+int main() {
+    char str[100];
+
+    printf("Enter a string: ");
+    fgets(str, sizeof(str), stdin);
+
+    // remove trailing newline if present
+    str[strcspn(str, "\n")] = '\0';
+
+    printf("\nOriginal : %s\n", str);
+
+    // Make lowercase
+    char lower[100];
+    strcpy(lower, str);
+    toLowerCase(lower);
+    printf("Lowercase: %s\n", lower);
+
+    // Make uppercase
+    char upper[100];
+    strcpy(upper, str);
+    toUpperCase(upper);
+    printf("Uppercase: %s\n", upper);
+
+    return 0;
+}
+//////////////////////////////////////////////////////////////////////////////
+#include <stdio.h>
+#include <string.h>
+
+void reverseString(char str[]) {
+    int left = 0;
+    int right = strlen(str) - 1;
+    
+    while (left < right) {
+        // Swap characters
+        char temp = str[left];
+        str[left] = str[right];
+        str[right] = temp;
+        
+        left++;
+        right--;
+    }
+}
+
+int main() {
+    char name[] = "Hello from Jamshedpur";
+
+    printf("Before: %s\n", name);
+    
+    reverseString(name);
+    printf("After : %s\n", name);
+
+    return 0;
+}
+////////////////////////////////////////////////////////////////////////////////
+#include <stdio.h>
+
+int my_strlen(const char *str) {
+    int count = 0;
+    
+    // Loop until we hit the null terminator
+    while (*str != '\0') {
+        count++;
+        str++;          // move pointer to next character
+    }
+    
+    return count;
+}
+
+int main() {
+    char name[] = "Jamshedpur";
+    char empty[] = "";
+    char single[] = "A";
+
+    printf("Length of \"%s\" = %d\n", name, my_strlen(name));
+    printf("Length of \"%s\" = %d\n", empty, my_strlen(empty));
+    printf("Length of \"%s\" = %d\n", single, my_strlen(single));
+
+    return 0;
+}
+///////////////////////////////////////////////////////////////////////////////////
+
+#include <stdio.h>
+
+int reverseNumber(int num) {
+    int reversed = 0;
+    
+    while (num > 0) {
+        int digit = num % 10;          // get last digit
+        reversed = reversed * 10 + digit;  // build reversed number
+        num = num / 10;                // remove last digit
+    }
+    
+    return reversed;
+}
+
+int main() {
+    int n;
+    printf("Enter a number: ");
+    scanf("%d", &n);
+    
+    int result = reverseNumber(n);
+    
+    printf("%d reversed is %d\n", n, result);
+    
+    return 0;
+}
+
+////////////////////////////////////////////////////////////////////////////////////
+#include <stdio.h>
+
+int main() {
+    int arr[] = {1, 2, 4, 5, 6};
+    int n = 6;
+    int sum = n * (n + 1) / 2;
+    int actual = 0;
+
+    for (int i = 0; i < 5; i++) {
+        actual += arr[i];
+    }
+
+    printf("Missing number = %d\n", sum - actual);
+    return 0;
+}
+///////////////////////////////////////////////////////////////////////////
+
+#include <stdio.h>
+
+int findUnique(int arr[], int n) {
+    int xor = 0;
+    for (int i = 0; i < n; i++) {
+        xor ^= arr[i];
+    }
+    return xor;
+}
+
+void findDuplicates(int arr[], int n) {
+    printf("Duplicates: ");
+    for (int i = 0; i < n - 1; i++) {
+        if ((arr[i] ^ arr[i + 1]) == 0) {
+            printf("%d ", arr[i]);
+            i++;
+        }
+    }
+    printf("\n");
+}
+
+int main() {
+    int arr[] = {1,1,2,2,3,3,4};
+    int n = sizeof(arr)/sizeof(arr[0]);
+
+    printf("Unique: %d\n", findUnique(arr, n));
+    findDuplicates(arr, n);
+
+    return 0;
+}
+///////////////////////////////////////////////////////////////////
+#include <stdio.h>
+
+// Normal function
+int sum(int a, int b) {
+    return a + b;
+}
+
+int main() {
+    int (*fp)(int, int);   // function pointer declaration
+
+    fp = sum;              // assign function address
+
+    int result = fp(10, 20);   // call using pointer
+
+    printf("Sum = %d\n", result);
+
+    return 0;
+}
+///////////////////////////////////////////////////////////////////
+
+#include <stdio.h>
+
+#define SIZE 5
+
+typedef struct {
+    int buf[SIZE];
+    int head;
+    int tail;
+} RingBuffer;
+
+// init
+void init(RingBuffer *rb) {
+    rb->head = 0;
+    rb->tail = 0;
+}
+
+// check empty
+int isEmpty(RingBuffer *rb) {
+    return rb->head == rb->tail;
+}
+
+// check full
+int isFull(RingBuffer *rb) {
+    return ((rb->head + 1) % SIZE) == rb->tail;
+}
+
+// push
+void push(RingBuffer *rb, int data) {
+    if (isFull(rb)) {
+        printf("Buffer Full\n");
+        return;
+    }
+
+    rb->buf[rb->head] = data;
+    rb->head = (rb->head + 1) % SIZE;
+}
+
+// pop
+int pop(RingBuffer *rb) {
+    if (isEmpty(rb)) {
+        printf("Buffer Empty\n");
+        return -1;
+    }
+
+    int data = rb->buf[rb->tail];
+    rb->tail = (rb->tail + 1) % SIZE;
+    return data;
+}
+
+// main
+int main() {
+    RingBuffer rb;
+    init(&rb);
+
+    push(&rb, 10);
+    push(&rb, 20);
+    push(&rb, 30);
+
+    printf("%d\n", pop(&rb)); // 10
+    printf("%d\n", pop(&rb)); // 20
+
+    push(&rb, 40);
+    push(&rb, 50);
+
+    while (!isEmpty(&rb)) {
+        printf("%d ", pop(&rb));
+    }
+
+    return 0;
+}
+/////////////////////////////////////////////////////////////////
+
+delete a node in a linked list at a given position , 
+#include <iostream>
+using namespace std;
+
+class Node {
+public:
+    int data;
+    Node* next;
+
+    Node(int data) {
+        this->data = data;
+        this->next = nullptr;
+    }
+};
+
+Node* deleteNode(Node* head, int position) {
+    Node* temp = head;
+
+    // Head is to be deleted
+    if (position == 1) {
+        head = temp->next;
+        delete temp;
+        return head;
+    }
+
+    // Traverse to the node 
+    // before the one to be deleted
+    Node* prev = nullptr;
+    for (int i = 1; i < position; i++) {
+        prev = temp;
+        temp = temp->next;
+    }
+
+    // Delete the node at the position
+    prev->next = temp->next;
+    delete temp;
+
+    return head;
+}
+
+void printList(Node* head) {
+    while (head != nullptr) {
+        cout << head->data << " -> ";
+        head = head->next;
+    }
+    cout << "nullptr" << endl;
+}
+
+int main() {
+    Node* head = new Node(1);
+    head->next = new Node(2);
+    head->next->next = new Node(3);
+    head->next->next->next = new Node(4);
+
+    int position = 3;
+    head = deleteNode(head, position);
+
+    printList(head);
+
+    return 0;
+}
+/////////////////////////////////////////////////////////////////////////////////////
+rotate array n time right 
+
+//////////////////////////////////////////////////////////////////////////////////
+rotate array n time left
