@@ -55,3 +55,49 @@ int main() {
 
     return 0;
 }
+/////////////////////////////////////////////////
+sanchit(amd)
+swap the nibble , 
+#include<stdio.h>
+int main(){
+int num1 = 0x12;
+int num2 = 0x34;
+int num1_nib = num1 & 0x0F;
+int num2_nib = num2 & 0x0F;
+printf("number 1 %x, number 2 %x", ((num1 & 0xF0) | num2_nib), ((num2 & 0xF0) | num1_nib));
+}
+/////////////////////////////////////////////////////////////
+remove the vowels from two string (concat without using any string tool)
+sanchit(amd)
+#include<stdio.h>
+#include<string.h>
+
+int main(){
+   char str1[] = "mumbai";
+   char str2[] = "banglore";
+
+   int l1 = strlen(str1);
+   int l2 = strlen(str2);
+
+   char str3[l1+l2+1];
+   int i=0;
+   int j=0;
+   int k=0;
+   while(i != l1){
+   if(str1[i] != 'a' & str1[i] != 'e' & str1[i] != 'i' & str1[i] != 'o' & str1[i] != 'u'){
+   str3[k]=str1[i];
+   k++;
+   }
+   i++;
+   }
+    while(j != l2){
+       if(str2[j] != 'a' & str2[j] != 'e' & str2[j] != 'i' & str2[j] != 'o' & str2[j] != 'u'){
+          str3[k]=str2[j];
+             k++;
+             }
+             j++;
+             }
+             str3[k]='\0';
+             printf("concat string %s", str3);
+
+}
