@@ -1,1 +1,0 @@
-1: write code to created simple linked list.
