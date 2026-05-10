@@ -65,8 +65,10 @@ Describing Non-Discoverable Hardware: How Device Trees Work
 There are three main approaches for handling non-discoverable hardware information:
 
 Directly in OS/Bootloader Code: Traditionally, this was done using compiled C structures, but this approach became unsustainable on ARM32 platforms.
-ACPI Tables: Mainly used on x86 systems and some ARM64 platforms. Firmware provides ACPI tables that the OS can interpret.
-Device Tree: Preferred for most embedded CPU architectures, including ARM, RISC-V, MIPS, and PowerPC. Initially created for PowerPC, Device Tree is now widely used across various platforms, including Linux, U-Boot, and FreeBSD. A Device Tree file (DTB) is often a necessity when porting Linux to new hardware.
+ACPI Tables: Mainly used on x86 systems and some ARM64 platforms. Firmware provides ACPI tables that the OS can 
+interpret.
+Device Tree: Preferred for most embedded CPU architectures, including ARM, RISC-V, MIPS, and PowerPC. Initially created for PowerPC, Device Tree is now widely used across various platforms, including Linux, U-Boot, and FreeBSD. 
+A Device Tree file (DTB) is often a necessity when porting Linux to new hardware.
 Principles of Device Tree
 Device Tree consists of a tree data structure describing hardware, typically written in Device Tree Source (.dts) files, then compiled into Device Tree Blob (.dtb) format by the Device Tree Compiler (dtc). The DTB format is efficient, OS-agnostic, and flexible:
 
@@ -77,7 +79,8 @@ Device Tree uses a hierarchy of nodes and properties:
 
 Nodes represent devices or IP blocks.
 Properties define characteristics of these devices.
-Each node may refer to other nodes using a special concept known as the phandle, enabling references across the tree. This structure supports modular hardware descriptions.
+Each node may refer to other nodes using a special concept known as the phandle, enabling references across the tree. This structure supports
+modular hardware descriptions.
 
 Press enter or click to view image in full size
 DirectionCommand (most common)Output file exampleDTS → DTBdtc -O dtb -o board.dtb board.dtsboard.dtbDTB → DTSdtc -I dtb -O dts -o board.dts board.dtbboard.dtsOverlay DTS → DTBOdtc -@ -O dtb -o overlay.dtbo overlay.dtsoverlay.dtboLive system DTB → DTSdtc -I fs -O dts /proc/device-tree > current.dts(whole running tree)
