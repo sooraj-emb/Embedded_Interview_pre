@@ -1,4 +1,6 @@
-Device Tree (often called Devicetree or DT) is one of the most important mechanisms in modern embedded Linux (especially ARM, RISC-V, some PowerPC architectures). It describes the hardware configuration to the kernel in a structured, board-specific, but kernel-generic way.
+Device Tree (often called Devicetree or DT) is one of the most important mechanisms in modern 
+embedded Linux (especially ARM, RISC-V, some PowerPC architectures). It describes the hardware configuration to the kernel in a structured, 
+board-specific, but kernel-generic way.
 Why Device Tree Exists (Historical & Practical Context)
 Before ~2010–2012:
 
@@ -34,7 +36,10 @@ Reserved memory (/reserved-memory node)
 opp-table — operating performance points (DVFS)
 thermal-zones, ** OPP**, cpus cpu-map, etc.
 
-Embedded systems, with their diverse components and architectures, require an efficient way to describe hardware in a standardized, reusable format. The Linux Device Tree (DT) provides a flexible structure to address this need, defining hardware details in a way that the operating system and bootloader can interpret. Let’s dive into how Device Trees work, why they’re essential, and how they’re structured.
+Embedded systems, with their diverse components and architectures, require an efficient way to describe hardware in a 
+standardized, reusable format. The Linux Device Tree (DT) provides a flexible structure to address this need, defining
+hardware details in a way that the operating system and bootloader can interpret. Let’s dive into how Device Trees work, 
+why they’re essential, and how they’re structured.
 
 Typical Embedded Platform
 
@@ -44,8 +49,10 @@ Typical Embedded Platform
 Discoverable vs. Non-Discoverable Hardware
 When it comes to embedded platforms, not all hardware is created equal in terms of discoverability.
 
-Discoverable Hardware: Some buses, like PCI(e) and USB, support device discoverability, meaning they can enumerate and identify connected devices at runtime. Devices on these buses can communicate details like vendor ID, product ID, and device class to the system.
-Non-Discoverable Hardware: Buses like I2C, SPI, and 1-Wire lack discoverability. Here, the system must know what devices are connected and how they’re configured. Device Tree is especially useful in embedded systems that rely heavily on these types of buses.
+Discoverable Hardware: Some buses, like PCI(e) and USB, support device discoverability, meaning they can enumerate and 
+identify connected devices at runtime. Devices on these buses can communicate details like vendor ID, product ID, and device class to the system.
+Non-Discoverable Hardware: Buses like I2C, SPI, and 1-Wire lack discoverability. Here, the system must know what devices 
+are connected and how they’re configured. Device Tree is especially useful in embedded systems that rely heavily on these types of buses.
 Hardware Description for Non-Discoverable Hardware
 For non-discoverable hardware, Device Tree files convey essential details about the hardware layout, including:
 
